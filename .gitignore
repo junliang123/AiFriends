@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.idea/
+db.sqlite3
+media/
+staticfiles/
+static/
+
+# 补充：前端不需要上传的巨大文件夹
+node_modules/
+dist/
