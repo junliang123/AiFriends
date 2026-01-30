@@ -1,10 +1,11 @@
 <script setup>
-
 import MenuIcon from "@/components/navbar/icon/MenuIcon.vue";
 import HomeIcon from "@/components/navbar/icon/HomeIcon.vue";
 import FriendIcon from "@/components/navbar/icon/FriendIcon.vue";
 import CreateIcon from "@/components/navbar/icon/CreateIcon.vue";
 import SearchIcon from "@/components/navbar/icon/SearchIcon.vue";
+import { useRoute } from 'vue-router';
+const route = useRoute()
 </script>
 
 <template>
@@ -29,7 +30,14 @@ import SearchIcon from "@/components/navbar/icon/SearchIcon.vue";
           </div>
         </div>
         <div class="navbar-end">
-          <RouterLink :to="{name: 'user-account-login-index'}" active-class="btn-active" class="btn btn-ghost text-lg">登录</RouterLink>
+          <RouterLink
+          :to="{name: 'user-account-login-index'}"
+          class="btn btn-ghost text-lg"
+          :class="{
+            'btn-active': route.name === 'user-account-login-index' || route.name === 'user-account-register-index'
+          }"
+          >登录
+          </RouterLink>
         </div>
       </nav>
       <!-- Page content here -->
