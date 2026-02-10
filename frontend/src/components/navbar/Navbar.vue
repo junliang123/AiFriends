@@ -5,7 +5,11 @@ import FriendIcon from "@/components/navbar/icon/FriendIcon.vue";
 import CreateIcon from "@/components/navbar/icon/CreateIcon.vue";
 import SearchIcon from "@/components/navbar/icon/SearchIcon.vue";
 import { useRoute } from 'vue-router';
+import {useUserStore} from "@/stores/user.js";
+import UserMenu from "@/components/navbar/UserMenu.vue";
 const route = useRoute()
+
+const user = useUserStore()
 </script>
 
 <template>
@@ -30,14 +34,15 @@ const route = useRoute()
           </div>
         </div>
         <div class="navbar-end">
-          <RouterLink
-          :to="{name: 'user-account-login-index'}"
-          class="btn btn-ghost text-lg"
-          :class="{
-            'btn-active': route.name === 'user-account-login-index' || route.name === 'user-account-register-index'
-          }"
-          >登录
+          <RouterLink v-if="user.IsLogin()" :to="{name: 'create-index'}" active-class="btn-active" class="btn btn-ghost text-base mr-6">
+            <CreateIcon />
+            创作
           </RouterLink>
+          <RouterLink v-if="!user.IsLogin()" :to="{name: 'user-account-login-index'}" class="btn btn-ghost text-lg" :class="{'btn-active': route.name === 'user-account-login-index' || route.name === 'user-account-register-index'}">
+            登录
+          </RouterLink>
+          <UserMenu v-else />
+
         </div>
       </nav>
       <!-- Page content here -->
