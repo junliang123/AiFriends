@@ -2,11 +2,11 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 
 export const useUserStore = defineStore('user', () => {
-    const id = ref(123)
-    const username = ref('ljl')
-    const photo = ref('http://127.0.0.1:8000/media/user/photos/default.png')
+    const id = ref(0)
+    const username = ref('')
+    const photo = ref('')
     const profile = ref('')
-    const accessToken = ref('1')
+    const accessToken = ref('')
 
     function IsLogin(){
         return !!accessToken.value

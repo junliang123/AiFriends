@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from web.models.user import UserProfile
 
-
 class LoginView(APIView):
     def post(self, request, *args, **kwargs):
         try:
@@ -16,7 +15,7 @@ class LoginView(APIView):
                 })
             user = authenticate(username=username, password=password)
             if user:
-                user_profile = UserProfile.objects.get(username=username)
+                user_profile = UserProfile.objects.get(user=user)
                 refresh = RefreshToken.for_user(user)
                 response = Response({
                     'result': 'success',
@@ -42,3 +41,4 @@ class LoginView(APIView):
             return Response({
                 'result': '系统错误，请稍后重试'
             })
+
