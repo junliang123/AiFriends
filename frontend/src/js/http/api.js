@@ -72,10 +72,10 @@ api.interceptors.response.use(
                         {},
                         {withCredentials: true, timeout: 5000}
                     ).then(res => {
-                        user.setAccessToken(res.data.access)
+                        user.SetAccessToken(res.data.access)
                         onRefreshed(res.data.access)
                     }).catch(error => {
-                        user.logout()
+                        user.Logout()
                         onRefreshFailed(error)
                         reject(error)
                     }).finally(() => {

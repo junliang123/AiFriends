@@ -8,6 +8,7 @@ import LoginIndex from "@/views/user/account/LoginIndex.vue";
 import RegisterIndex from "@/views/user/account/RegisterIndex.vue";
 import SpaceIndex from "@/views/user/space/SpaceIndex.vue";
 import ProfileIndex from "@/views/user/profile/ProfileIndex.vue";
+import {useUserStore} from "@/stores/user.js";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,48 +17,84 @@ const router = createRouter({
       path: '/',
       component: HomepageIndex,
       name: 'homepage-index',
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: '/friend/',
       component: FriendIndex,
       name: 'friend-index',
+      meta: {
+        needLogin: true,
+      },
     },
     {
       path: '/create/',
       component: CreateIndex,
       name: 'create-index',
+      meta: {
+        needLogin: true,
+      },
     },
     {
       path: '/404/',
       component: NotfoundIndex,
       name: '404',
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: '/user/account/login/',
       component: LoginIndex,
       name: 'user-account-login-index',
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: '/user/account/register/',
       component: RegisterIndex,
       name: 'user-account-register-index',
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: '/user/space/:user_id/',
       component: SpaceIndex,
       name: 'user-space-index',
+      meta: {
+        needLogin: false,
+      },
     },
     {
       path: '/user/profile/',
       component: ProfileIndex,
       name: 'user-profile-index',
+      meta: {
+        needLogin: true,
+      },
     },
     {
       path: '/:pathMatch(.*)*',
       component: NotfoundIndex,
-      name: 'not-fount'
+      name: 'not-fount',
+      meta: {
+        needLogin: false,
+      },
     },
   ],
+})
+
+router.beforeEach((to,)=>{
+  const user = useUserStore()
+  if(to.meta.needLogin && user.hasPulledUserInfo && !user.IsLogin()){
+    return{
+      name: 'user-account-login-index'
+    }
+  }
 })
 
 export default router

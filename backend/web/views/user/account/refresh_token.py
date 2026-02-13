@@ -1,5 +1,4 @@
 from django.conf import settings
-from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -8,13 +7,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 class RefreshTokenView(APIView):
     def post(self, request):
         try:
-            refresh_token = request.COOKIE.get('refresh_token')
+            refresh_token = request.COOKIES.get('refresh_token')
             if not refresh_token:
                 return Response({
                     'result': 'refresh token不存在'
                 }, status=401)
             refresh = RefreshToken(refresh_token) #如果过期，会报异常
-            if settings.SIMPLE_JWT['ROTATE_REFRESH_TOKEN']:
+            if settings.SIMPLE_JWT['ROTATE_REFRESH_TOKENS']:
                 refresh.set_jti()
                 response = Response({
                     'result': 'success',
@@ -38,4 +37,3 @@ class RefreshTokenView(APIView):
             return Response({
                 'result': 'refresh token过期了'
             }, status=401)
-
