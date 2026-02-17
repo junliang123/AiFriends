@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from web.models.user import UserProfile
 from web.views.utils.photo import remove_old_photo
 
-
 class UpdateProfileView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
